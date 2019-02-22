@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 // const { bookmarks } = require('./store');
-const uuid = require('uuid/v4');
+const uuid = require('uuid/v4'); 
 const { NODE_ENV } = require('./config');
 
 const app = express();
@@ -15,6 +15,7 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 app.use(morgan(morganOption));
+app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
@@ -45,6 +46,58 @@ app.get('/bookmarks', (req, res) => {
   res.send(bookmarks);
 });
 
+app.get('/bookmarks/:id', (req, res) => {
+  const { id } = req.params;
+  const bookmark = bookmarks.find(b => b.id == id);
+  if(!bookmark){
+    return res.status(404)
+      .send('Bookmark not found');
+  }
+  res.status(200).send(bookmark); 
+});
+
+app.post('/bookmarks', (req, res) =>{
+
+  const { title, description, link } = req.body;
+  
+  if (!title) {
+    res.status(400).send('Please include title.'); 
+  }
+  
+  if (!description) {
+    res.status(400).send('Please include description.'); 
+  } 
+  
+  if (!link) {
+    res.status(400).send('Please include link.'); 
+  }
+
+  const id = uuid(); 
+
+  const bookmark ={
+    id,
+    title,
+    description,
+    link
+  };
+
+  bookmarks.push(bookmark); 
+  
+  res.status(201).location(`http://localhost:8001/bookmarks/${id}`).json(bookmark); 
+});
+
+app.delete('/bookmarks/:id', (req, res) => {
+  const { id } = req.params; 
+  const index = bookmarks.findIndex(b => b.id == id); 
+
+  if (index === -1){
+    return res.status(404).send('Bookmark not found');
+  }
+
+  bookmarks.splice(index, 1);
+  
+  res.status(204).send('Bookmark deleted').end(); 
+});
 
 // placeholder response for / location
 app.get('/', (req,res) => {
