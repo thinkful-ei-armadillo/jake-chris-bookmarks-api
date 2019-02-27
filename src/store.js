@@ -29,3 +29,5 @@ const bookmarks = [
     'desc':  'coding bootcamp',
     'url': 'https://www.thinkful.com'}
 ];
+
+module.exports = bookmarks; 

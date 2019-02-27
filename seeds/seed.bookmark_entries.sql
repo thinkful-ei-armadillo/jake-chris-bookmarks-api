@@ -1,0 +1,35 @@
+INSERT INTO bookmark_entries (id, title, description, url, rating) VALUES
+(1,
+    'google',
+    'search',
+    'https://www.google.com',
+    5
+  ),
+  (2,
+    'yahoo',
+    'search',
+    'https://www.yahoo.com',
+    5
+  ),
+  (3,
+    'dunder-mifflin',
+    'paper company',
+    'https://www.dunder-mifflin.com',
+    5
+  ), 
+  (4,
+    'gmail',
+    'email client',
+    'https://www.gmail.com',
+    5),
+  (5,
+    'thingiverse',
+    '3D print some stuff',
+    'https://www.thingiverse.com',
+    5
+  ),
+  (6,
+    'thinkful',
+    'coding bootcamp',
+    'https://www.thinkful.com',
+    5)
