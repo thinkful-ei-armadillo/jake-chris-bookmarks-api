@@ -58,6 +58,7 @@ bookmarkRouter
             error: { message: 'Bookmark doesn\'t exist' }
           });
         }
+        console.log(bookmarks);
         res.json(bookmarks);
       })
       .catch(next);

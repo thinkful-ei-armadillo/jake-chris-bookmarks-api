@@ -3,5 +3,5 @@ CREATE TABLE bookmark_entries (
   title TEXT NOT NULL,
   url TEXT NOT NULL, 
   description TEXT,
-  rating NUMERIC(1,0) NOT NULL
+  rating INT NOT NULL
 );
